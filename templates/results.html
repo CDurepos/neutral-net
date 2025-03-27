@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Neutral Net - Results for "{{ query }}"{% endblock %}
+
+{% block content %}
+<div class="row mt-5">
+    <div class="col-12">
+        <h1 class="mb-4">Search Results for "{{ query }}"</h1>
+        <p>Found {{ results|length }} articles sorted by bias score (lowest first)</p>
+
+        <div class="mb-4">
+            <a href="/" class="btn btn-outline-primary">New Search</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    {% for result in results %}
+    <div class="col-md-6">
+        <div class="card result-card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title">
+                    {{result.title|truncate(60)}}
+                </h4>
+                <div class="bias-score mb-2">
+                    <div class="d-flex justify-content-between">
+                        <span>Low Bias</span>
+                        <span>High Bias</span>
+                    </div>
+                    <div class="bias-meter"></div>
+                    <div class="bias-indicator" style="margin-left: calc({{ result.score }}% - 1px);"></div>
+                    <p class="mt-2">
+                        <strong>Bias Score: {{ "%.2f"|format(result.score) }}%</strong>
+                        {% if result.score < 20 %}
+                            <span class="badge bg-success">Very Low Bias</span>
+                        {% elif result.score < 40 %}
+                            <span class="badge bg-info">Low Bias</span>
+                        {% elif result.score < 60 %}
+                            <span class="badge bg-warning text-dark">Moderate Bias</span>
+                        {% elif result.score < 80 %}
+                            <span class="badge bg-danger">High Bias</span>
+                        {% else %}
+                            <span class="badge bg-danger">Very High Bias</span>
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="d-grid">
+                    <a href="{{ result.link }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">Read Article</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="my-2"></div>
+</div>
+
+{% endblock %}
