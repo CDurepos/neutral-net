@@ -17,7 +17,7 @@ def get_text(url):
         if not raw_text:
             try:
                 response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
-                response.raise_for_status()  # Raise exception for 4XX/5XX status codes
+                response.raise_for_status()
                 soup = BeautifulSoup(response.text, "html.parser")
                 paragraphs = [p.get_text() for p in soup.find_all("p")]
                 raw_text = "\n".join(paragraphs)
