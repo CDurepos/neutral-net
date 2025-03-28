@@ -35,15 +35,11 @@ class BiasDetector():
 
 
     def sentence_level_score(self, text):
-        sentences = nltk.sent_tokenize(text)  # Split into sentences
-        biased_count = 0
+        sentences = nltk.sent_tokenize(text)
         total_sentences = len(sentences)
 
-        for sentence in sentences:
-            result = self.score(sentence)[0]  # Get classification result
-
-            if result['label'] == 'LABEL_1' and result['score'] > 0.7:  # Count how many are biased
-                biased_count += 1
+        results = self.score(sentences)
+        biased_count = sum(1 for result in results if result['label'] == 'LABEL_1' and result['score'] > 0.7)
 
         bias_score = biased_count / total_sentences if total_sentences > 0 else 0
         return bias_score * 100
