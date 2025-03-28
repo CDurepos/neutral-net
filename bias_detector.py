@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from newspaper import Article
 import requests
 import nltk
+import re
 
 
 def get_text(url):
@@ -29,13 +30,29 @@ def get_text(url):
     except Exception as e:
         return
 
+def to_sentences(text):
+    sentences = nltk.sent_tokenize(text)
+    short_sent = []
+    for sentence in sentences:
+        if len(sentence) >= 512:
+            short_sent.extend( re.split(r'[.?!\n;]', sentence) )
+        else:
+            short_sent.append(sentence)
+
+    return [s.strip() for s in short_sent if s.strip()]
+
 class BiasDetector():
     def __init__(self):
         self.score = pipeline("text-classification", model="./binary_bias_bert")
 
 
-    def sentence_level_score(self, text):
-        sentences = nltk.sent_tokenize(text)
+    def bias_score(self, url):
+        raw_text = get_text(url)
+        if raw_text is None:
+            return None
+
+        sentences = to_sentences(raw_text)
+        print(sentences)
         total_sentences = len(sentences)
 
         results = self.score(sentences)
@@ -43,10 +60,3 @@ class BiasDetector():
 
         bias_score = biased_count / total_sentences if total_sentences > 0 else 0
         return bias_score * 100
-
-    def bias_score(self, url):
-        raw_text = get_text(url)
-        if raw_text is None:
-            return None
-
-        return self.sentence_level_score(raw_text)
