@@ -1,5 +1,6 @@
 numpy==1.24.4
 
+re
 bs4
 nltk
 flask
@@ -11,4 +12,3 @@ datasets
 accelerate
 newspaper3k
 transformers
-
