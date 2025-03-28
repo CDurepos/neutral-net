@@ -52,7 +52,6 @@ class BiasDetector():
             return None
 
         sentences = to_sentences(raw_text)
-        print(sentences)
         total_sentences = len(sentences)
 
         results = self.score(sentences)
