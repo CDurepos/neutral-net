@@ -2,6 +2,7 @@ from transformers import pipeline
 from bs4 import BeautifulSoup
 from newspaper import Article
 import requests
+import torch
 import nltk
 import re
 
@@ -43,7 +44,9 @@ def to_sentences(text):
 
 class BiasDetector():
     def __init__(self):
-        self.score = pipeline("text-classification", model="./binary_bias_bert")
+        self.score = pipeline("text-classification",
+                              model="./binary_bias_bert",
+                              device="cuda" if torch.cuda.is_available() else "cpu")
 
 
     def bias_score(self, url):
