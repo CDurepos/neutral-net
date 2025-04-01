@@ -59,6 +59,20 @@
     {% block head %}{% endblock %}
 </head>
 <body class="bg-light">
+    <div id="notice-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center bg-dark text-light p-4">
+                <div class="modal-body">
+                    <h3 class="my-4">Notice</h3>
+                    <p>NeutralNet's servers are currently being used for other research projects.</p>
+                    <p>Because of this, processing times may be slower than usual.</p>
+                    <p>Thank you for understanding!</p>
+                    <button type="button" class="btn btn-primary mt-3" data-bs-dismiss="modal">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <nav class="bg-gradient-blue bg-dark navbar navbar-expand-lg navbar-dark fixed-top afacad-font">
         <div class="container">
             <a class="navbar-brand" href="/">Neutral Net</a>
@@ -108,6 +122,15 @@
             <p class="mb-0">© 2025 Neutral Net | Powered by BERT & SerpAPI</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            {% if show_warning %}
+                var warningModal = new bootstrap.Modal(document.getElementById('notice-modal'));
+                warningModal.show();
+            {% endif %}
+        });
+    </script>
 
     {% block scripts %} {% endblock %}
 

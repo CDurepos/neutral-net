@@ -5,12 +5,13 @@ from bias_detector import BiasDetector
 app = Flask(__name__)
 
 search_engine = SearchEngine()
-bias_detector = BiasDetector()
+bd = BiasDetector()
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    show_warning = bd.score.device != "cuda"
+    return render_template('index.html', show_warning=show_warning)
 
 
 @app.route('/search', methods=['POST'])
@@ -49,7 +50,7 @@ def analyze_url():
         return jsonify({'error': 'Please provide a URL'}), 400
 
     try:
-        bias_score = bias_detector.bias_score(url)
+        bias_score = bd.bias_score(url)
         return jsonify({
             'url': url,
             'bias_score': bias_score,
