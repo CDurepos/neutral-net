@@ -10,7 +10,7 @@ bd = BiasDetector()
 
 @app.route('/')
 def index():
-    show_warning = bd.score.device != "cuda"
+    show_warning = bd.score.device.type != "cuda"
     return render_template('index.html', show_warning=show_warning)
 
 
