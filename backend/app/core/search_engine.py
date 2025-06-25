@@ -1,5 +1,5 @@
 import serpapi
-from bias_detector import BiasDetector
+from backend.app.core.bias_detector import BiasDetector
 
 
 class SearchEngine:

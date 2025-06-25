@@ -1,10 +1,11 @@
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
 from bs4 import BeautifulSoup
 from newspaper import Article
 import requests
 import torch
 import nltk
 import re
+import os
 
 
 def get_text(url):
@@ -44,10 +45,16 @@ def to_sentences(text):
 
 class BiasDetector():
     def __init__(self):
-        self.score = pipeline("text-classification",
-                              model="./binary_bias_bert",
-                              device="cuda" if torch.cuda.is_available() else "cpu")
+        model_path = os.path.abspath("./backend/app/models/binary_bias_bert")
+        tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
+        model = AutoModelForSequenceClassification.from_pretrained(model_path, local_files_only=True)
 
+        self.score = pipeline(
+            task="text-classification",
+            model=model,
+            tokenizer=tokenizer,
+            device="cuda" if torch.cuda.is_available() else "cpu"
+        )
 
     def bias_score(self, url):
         raw_text = get_text(url)

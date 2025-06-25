@@ -1,0 +1,50 @@
+:root {
+    --nn-blue: #0d6efd;
+    --standard-gradient: linear-gradient(to right, var(--nn-blue), lightskyblue);
+}
+
+#home-title {
+    font-size: 5vh;
+}
+
+.bg-gradient-blue {
+    background-image: var(--standard-gradient);
+}
+
+.bg-dark {
+    background-color: var(--nn-blue);
+    opacity: 1;
+}
+
+.afacad-font {
+    font-family: Afacad;
+}
+
+.text-blue {
+    color: var(--nn-blue);
+}
+
+.result-card {
+    transition: transform 0.3s;
+    margin-bottom: 1rem;
+}
+
+.result-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.bias-meter {
+    height: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    background: linear-gradient(to right, #4CAF50, #FFEB3B, #F44336);
+}
+
+.bias-indicator {
+    height: 15px;
+    width: 3px;
+    background-color: black;
+    position: relative;
+    top: -12px;
+}

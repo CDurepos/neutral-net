@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import evaluate
 
-DATA_PATH = 'mbic_dataset.xlsx'
+DATA_PATH = '../../mbic_dataset.xlsx'
 MODEL_NAME = 'google-bert/bert-base-cased'
 
 model = BertForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=2)
@@ -33,7 +33,7 @@ split = tokenized_dataset.train_test_split(test_size=0.2)
 train_dataset = split["train"]
 test_dataset = split["test"]
 
-training_args = TrainingArguments(output_dir="./test_trainer",
+training_args = TrainingArguments(output_dir="../../test_trainer",
                                   eval_strategy="epoch",
                                   save_strategy="epoch")
 

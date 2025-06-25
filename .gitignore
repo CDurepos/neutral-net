@@ -1,8 +1,38 @@
 # created by virtualenv automatically
-.venv/bin
-.venv/
 venv/
+.venv/
+.venv/bin/
 
-test_trainer/
-binary_bias_bert/
+# trainer logs produced by huggingface trainer
+backend/scripts/test_trainer
+
+# fine-tuned model for production
+backend/app/models/binary_bias_bert/
+
+# dataset for fine-tuning
 mbic_dataset.xlsx
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# frontend installation & build
+frontend/dist
+frontend/node_modules/
+frontend/package-lock.json
+
+# frontend logs
+frontend/logs
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/lerna-debug.log*
