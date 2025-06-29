@@ -23,6 +23,9 @@ mbic_dataset.xlsx
 *.sln
 *.sw?
 
+# private keys
+.env
+
 # frontend installation & build
 frontend/dist
 frontend/node_modules/

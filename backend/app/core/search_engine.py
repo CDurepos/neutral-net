@@ -1,10 +1,12 @@
+import os
 import serpapi
+from dotenv import load_dotenv
 from app.core.bias_detector import BiasDetector
-
 
 class SearchEngine:
     def __init__(self):
-        self.api_token = "d9479ac81ae8b920aac16fe8598d18aa29b0cb3384c2c9eb0958190c5a7f79c8"
+        load_dotenv()
+        self.api_token = os.getenv("SERPAPI_KEY")
         self.detector = BiasDetector()
 
     def search(self, query, num_results=10):

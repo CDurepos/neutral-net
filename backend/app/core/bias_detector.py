@@ -53,7 +53,7 @@ class BiasDetector():
             task="text-classification",
             model=model,
             tokenizer=tokenizer,
-            device="cuda" if torch.cuda.is_available() else "cpu"
+            device=0 if torch.cuda.is_available() else -1
         )
 
     def bias_score(self, url):
